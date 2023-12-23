@@ -1,6 +1,5 @@
 package com.driver.services.impl;
 
-import com.driver.Exception.NoCabAvailableException;
 import com.driver.model.*;
 import com.driver.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

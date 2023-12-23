@@ -21,18 +21,19 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	public void register(String mobile, String password){
 		//Save a driver in the database having given details and a cab with ratePerKm as 10 and availability as True by default.
-		Cab defaultCab = new Cab();
-		defaultCab.setPerKmRate(10);
-		defaultCab.setAvailable(true);
+		Driver driver = new Driver();
 
-		Cab savedCab = cabRepository3.save(defaultCab);
+		Cab cab = new Cab();
+		cab.setPerKmRate(10);
+		cab.setAvailable(true);
 
-		Driver newDriver = new Driver();
-		newDriver.setMobile(mobile);
-		newDriver.setPassword(password);
+		driver.setMobile(mobile);
+		driver.setPassword(password);
+		driver.setCab(cab);
 
-		newDriver.setCab(savedCab);
-		driverRepository3.save(newDriver);
+		driverRepository3.save(driver);
+
+		//We will not save driver explicitly because of cascading effect (here driver is child and cab is parent)
 	}
 
 	@Override
