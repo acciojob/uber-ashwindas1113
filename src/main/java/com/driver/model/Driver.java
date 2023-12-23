@@ -11,7 +11,7 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer driverId;
 
-    private String mobNo;
+    private String mobile;
 
     private String password;
 
@@ -25,11 +25,19 @@ public class Driver {
     // Constructor & Getter - Setter
     public Driver(Integer driverId, String mobNo, String password) {
         this.driverId = driverId;
-        this.mobNo = mobNo;
+        this.mobile = mobNo;
         this.password = password;
     }
 
     public Driver(){
+    }
+
+    public Driver(Integer driverId, String mobile, String password, Cab cab, List<TripBooking> tripBookingList) {
+        this.driverId = driverId;
+        this.mobile = mobile;
+        this.password = password;
+        this.cab = cab;
+        this.tripBookingList = tripBookingList;
     }
 
     public Integer getDriverId() {
@@ -40,12 +48,12 @@ public class Driver {
         this.driverId = driverId;
     }
 
-    public String getMobNo() {
-        return mobNo;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setMobNo(String mobNo) {
-        this.mobNo = mobNo;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getPassword() {
@@ -71,5 +79,4 @@ public class Driver {
     public void setTripBookingList(List<TripBooking> tripBookingList) {
         this.tripBookingList = tripBookingList;
     }
-
 }

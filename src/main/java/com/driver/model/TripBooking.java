@@ -21,17 +21,6 @@ public class TripBooking {
 
     private Integer bill;
 
-    public TripBooking(Integer tripBookingId, String fromLocation, String toLocation, Integer distanceInKm, TripStatus tripStatus, Integer bill, Customer customer, Driver driver) {
-        this.tripBookingId = tripBookingId;
-        this.fromLocation = fromLocation;
-        this.toLocation = toLocation;
-        this.distanceInKm = distanceInKm;
-        this.tripStatus = tripStatus;
-        this.bill = bill;
-        this.customer = customer;
-        this.driver = driver;
-    }
-
     @ManyToOne
     @JoinColumn
     private Customer customer;
@@ -41,12 +30,18 @@ public class TripBooking {
     private Driver driver;
 
     public TripBooking() {
-        // Default constructor with default values
-        this.fromLocation = "";
-        this.toLocation = "";
-        this.distanceInKm = 0;
-        this.tripStatus = TripStatus.CONFIRMED; // Assuming PENDING is one of the values in your TripStatus enum
-        this.bill = 0;
+
+    }
+
+    public TripBooking(Integer tripBookingId, String fromLocation, String toLocation, Integer distanceInKm, TripStatus tripStatus, Integer bill, Customer customer, Driver driver) {
+        this.tripBookingId = tripBookingId;
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
+        this.distanceInKm = distanceInKm;
+        this.tripStatus = tripStatus;
+        this.bill = bill;
+        this.customer = customer;
+        this.driver = driver;
     }
 
     public Integer getTripBookingId() {

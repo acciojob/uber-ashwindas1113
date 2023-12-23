@@ -11,21 +11,32 @@ public class Cab{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer cabId;
+    private Integer Id;
 
     private Integer perKmRate;
 
     private boolean available;
 
+    @OneToOne
+    @JoinColumn
+    private Driver driver;
+
     public Cab() {
     }
 
-    public Integer getCabId() {
-        return cabId;
+    public Cab(Integer id, Integer perKmRate, boolean available, Driver driver) {
+        Id = id;
+        this.perKmRate = perKmRate;
+        this.available = available;
+        this.driver = driver;
     }
 
-    public void setCabId(Integer cabId) {
-        this.cabId = cabId;
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
     }
 
     public Integer getPerKmRate() {
@@ -41,11 +52,17 @@ public class Cab{
     }
 
     public void setAvailable(boolean available) {
-        available = available;
+        this.available = available;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     //Mapping
-     @OneToOne
-     @JoinColumn
-     private Driver driver;
+
 }
