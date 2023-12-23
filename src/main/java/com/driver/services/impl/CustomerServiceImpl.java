@@ -1,17 +1,14 @@
 package com.driver.services.impl;
 
 import com.driver.Exception.NoCabAvailableException;
-import com.driver.model.TripBooking;
+import com.driver.model.*;
 import com.driver.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.driver.model.Customer;
-import com.driver.model.Driver;
 import com.driver.repository.CustomerRepository;
 import com.driver.repository.DriverRepository;
 import com.driver.repository.TripBookingRepository;
-import com.driver.model.TripStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +34,28 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void deleteCustomer(Integer customerId) {
 		// Delete customer without using deleteById function
-		Customer deleted = customerRepository2.findById(customerId).get();
-		customerRepository2.delete(deleted);
+		Customer customer = customerRepository2.findById(customerId).get();
+		List<TripBooking> bookedTrips = customer.getTripBookingList();
+
+		//Now we will set the cab as available for each and every trip booked by this customer,
+		//who is going to be deleted
+
+		for(TripBooking trip : bookedTrips){
+			Driver driver = trip.getDriver();
+			Cab cab = driver.getCab();
+			cab.setAvailable(true);
+			driverRepository2.save(driver);
+			trip.setStatus(TripStatus.CANCELED);
+		}
+
+		/* We are doing all these above things because customer table is not joined with the driver or cab table
+		 * directly, hence cascading will not work for the driver here, therefore, we are making the changes
+		 * by manually, and since driver is parent and cab is child making changes in parent (driver) will
+		 * automatically make changes in child (cab)*/
+
+		//Now we will delete the customer from the repository and as a result of cascading effect trips will also
+		//be deleted
+		customerRepository2.delete(customer);
 	}
 
 	@Override
