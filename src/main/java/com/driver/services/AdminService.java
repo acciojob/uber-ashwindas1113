@@ -1,10 +1,11 @@
 package com.driver.services;
 
-import java.util.List;
-
 import com.driver.model.Admin;
 import com.driver.model.Customer;
 import com.driver.model.Driver;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+
+import java.util.List;
 
 public interface AdminService {
 
